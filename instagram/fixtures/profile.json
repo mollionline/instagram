@@ -1,0 +1,41 @@
+[
+{
+    "model": "accounts.profile",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "admin123"
+        ],
+        "avatar": "",
+        "about_profile": null,
+        "phone": null,
+        "gender": null
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "admin4445"
+        ],
+        "avatar": "user_pics/developer_HvsG96M.jpg",
+        "about_profile": "",
+        "phone": "+77775970456",
+        "gender": "they"
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 9,
+    "fields": {
+        "user": [
+            "manager444"
+        ],
+        "avatar": "user_pics/admin.jpg",
+        "about_profile": "",
+        "phone": "+77775970457",
+        "gender": "they"
+    }
+}
+]

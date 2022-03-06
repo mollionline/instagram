@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container form-auth">
+        <h4>Вход</h4>
+        <form action="{% url 'login' %}{% if next %}?next={{ next }}{% endif %}" method="post"
+              class="row align-items-center">
+            <div class="col-12">
+                {% csrf_token %}
+                {% if has_error %}
+                    <p class="form-error">Неверное имя пользователя или пароль.</p>
+                {% endif %}
+                <label for="inputUsername3" class="col-sm-2 col-form-label">Имя пользователя:</label>
+                <input type="text" class="form-control" id="inputUsername3" name="username">
+                <label for="password" class="col-sm-2 col-form-label">Пароль:</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="col-12 py-3">
+                <button type="submit" class="btn btn-primary">Войти</button>
+                или
+                <a class="btn btn-success" aria-current="page"
+                   href="{% url 'register' %}">Зарегистрироваться</a>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
