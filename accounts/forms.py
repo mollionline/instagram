@@ -47,3 +47,15 @@ class ProfileCreateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar', 'about_profile', 'phone', 'gender']
+
+
+class UserChangeForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['username', 'first_name', 'email']
+
+
+class ProfileChangeForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user', ]
