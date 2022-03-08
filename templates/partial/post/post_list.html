@@ -1,0 +1,21 @@
+<div style="display: flex; flex-wrap: wrap;">
+        {% for post in posts %}
+            <div class="card"  style="width: 22rem; margin: 5px">
+
+                    <a href="{% url 'detail_post' post.pk %} " class="card-link">
+                        <div class="card-body">
+
+                    <div style="display: flex">
+                    <img style="width: 100%" src="{{ post.photo.url }}" alt="">
+                    <div>
+
+                        <p class="card-text">Оценили: {{ post.likes.count|default:0 }}</p>
+                        </div>
+                    </a>
+
+            </div>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
