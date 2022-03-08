@@ -1,26 +1,32 @@
-{% extends 'base.html' %}
+{% extends 'base_register.html' %}
+{% load static %}
 {% block content %}
     <div class="container form-auth">
-        <h4>Вход</h4>
-        <form action="{% url 'login' %}{% if next %}?next={{ next }}{% endif %}" method="post"
-              class="row align-items-center">
-            <div class="col-12">
-                {% csrf_token %}
-                {% if has_error %}
-                    <p class="form-error">Неверное имя пользователя или пароль.</p>
-                {% endif %}
-                <label for="inputUsername3" class="col-sm-2 col-form-label">Имя пользователя:</label>
-                <input type="text" class="form-control" id="inputUsername3" name="username">
-                <label for="password" class="col-sm-2 col-form-label">Пароль:</label>
-                <input type="password" class="form-control" id="password" name="password">
-            </div>
-            <div class="col-12 py-3">
-                <button type="submit" class="btn btn-primary">Войти</button>
-                или
-                <a class="btn btn-success" aria-current="page"
-                   href="{% url 'register' %}">Зарегистрироваться</a>
-            </div>
+        <div class="row row-cols-2">
+            <div class="col"><img src="{% static 'images_common/login_phone.png' %}" alt=""></div>
+            <div class="col">
+                <h4 style="font-family: 'Cookie', cursive; text-align: center; font-size: 35px">Instagram</h4>
+                <form action="{% url 'login' %}{% if next %}?next={{ next }}{% endif %}" method="post"
+                      class="row align-items-center">
+                    <div>
+                        {% csrf_token %}
+                        {% if has_error %}
+                            <p class="form-error">Неверное имя пользователя или пароль.</p>
+                        {% endif %}
+                        <input type="text" class="form-control" id="inputUsername3" name="username"
+                               placeholder="Введите имя пользователя или эл. адрес">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
+                        <button type="submit" class="btn btn-primary form-control">Войти</button>
+                    </div>
+                    <div class="col-6 py-3">
+                        У вас еще нету аккаунта?
+                        <a class="btn btn-outline-primary" aria-current="page"
+                           href="{% url 'register' %}">Зарегистрироваться</a>
+                    </div>
 
-        </form>
+                </form>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
