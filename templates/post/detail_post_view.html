@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+     <div>
+            Автор: <span>{{ post.author }}</span>
+        </div>
+        <div>
+            Описание: {{ post.text }}
+        </div>
+
+        <div>
+            <img style="width: 30%" src="{{ post.photo.url }}" alt="">
+        </div>
+    <div>
+        {% if request.user.pk not in post.likes.user_id %}
+            <a href="{% url 'like' pk=post.pk %}">
+            <i class="fa fa-thumbs-up"></i>
+                Like
+            </a>
+            {% else %}
+                Оценили: {{ post.likes.count }}
+            {% endif %}
+    </div>
+
+
+
+        <div>
+            <a href="{% url 'list_post' %}">Публикации</a>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Удалить</button>
+        </div>
+
+
+
+     {% include 'common/delete_modal.html' with deleted_object=post%}
+{% endblock %}
