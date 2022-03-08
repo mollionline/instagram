@@ -61,7 +61,7 @@
                         <label for="gender">Пол</label>
                         <select name="gender" id="gender" class="form-control">
                             {% for gender in genders %}
-                                <option value="{{ gender.0 }}" {% if profile_form.gender.value == gender %}
+                                <option value="{{ gender.0 }}" {% if gender.0  == profile_form.gender.value %}
                                         selected
                                 {% endif %} >{{ gender.1 }} </option>
                             {% endfor %}
