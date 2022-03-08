@@ -14,7 +14,7 @@ accounts_urls = [
     path('register/', RegisterView.as_view(), name='register'),
     path('profile/<int:pk>', UserProfileView.as_view(), name='profile'),
     path('profile/update', UserProfileUpdateView.as_view(), name='update_profile'),
-    path('profile/change_password', ChangePasswordView.as_view(), name='change_profile')
+    path('profile/change_password', ChangePasswordView.as_view(), name='change_password')
 ]
 
 urlpatterns += accounts_urls

@@ -1,10 +1,13 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import DetailView, UpdateView
+from django.contrib.auth.models import User
+from django.contrib.auth.backends import ModelBackend, UserModel
 
-from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm
+from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
 
 # Create your views here.
 from django.views import View
@@ -29,16 +32,6 @@ class LoginView(View):
             if next_page is not None:
                 return redirect(next_page)
             return redirect('/')
-        # elif user is None:
-        #     User = get_user_model()
-        #     email_num = User.objects.all().filter(email__iexact=username)
-        #     if email_num:
-        #         username = email_num[0].username
-        #         user = authenticate(username=username, password=password)
-        #         login(request, user)
-        #         if next_page is not None:
-        #             return redirect(next_page)
-        #         return redirect('/')
         else:
             context['has_error'] = True
         return render(request, 'registration/login.html', context=context)
@@ -120,6 +113,7 @@ class UserProfileUpdateView(UpdateView):
 
     def form_invalid(self, form, profile_form):
         context = self.get_context_data(form=form, profile_form=profile_form)
+        context['genders'] = Profile.GENDER
         return self.render_to_response(context)
 
     def get_success_url(self):
@@ -129,5 +123,19 @@ class UserProfileUpdateView(UpdateView):
         return self.model.objects.get(id=self.request.user.id)
 
 
-class ChangePasswordView(UpdateView):
-    pass
+class ChangePasswordView(LoginRequiredMixin, UpdateView):
+    model = get_user_model()
+    template_name = 'registration/change_password.html'
+    form_class = PasswordChangeForm
+    context_object_name = 'user_obj'
+
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('profile', kwargs={'pk': self.object.pk})
+
+    def get_object(self, queryset=None):
+        return self.model.objects.get(id=self.request.user.id)

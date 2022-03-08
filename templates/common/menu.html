@@ -31,7 +31,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                   href=""><img src="{% static 'images_common/person.svg' %}" alt="" width="60" height="40"
+                   href="{% url 'profile' request.user.pk %}"><img src="{% static 'images_common/person.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
             </li>
         </ul>
