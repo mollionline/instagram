@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<body>
+
+<div class="container">
+    {% for user in q %}
+    <div class="post mt-2">
+
+           <a href="{% url 'profile' user.pk %}"> Пользователь: {{ user.user }}</a>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+</body>
+
+
+
+
+{% endblock %}
+

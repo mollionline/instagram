@@ -2,8 +2,11 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, ListView
+from typing import Dict
+from urllib.parse import urlencode
 
+from django.db.models import Q
 from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm
 
 # Create your views here.
@@ -131,3 +134,17 @@ class UserProfileUpdateView(UpdateView):
 
 class ChangePasswordView(UpdateView):
     pass
+
+
+def search(request):
+    sterm = request.GET.get('search1', None)
+    if sterm == None:
+        return redirect('list_draft')
+
+    else:
+        user = Profile.objects.filter(Q(user__username__exact=sterm) |
+                                      Q(user__first_name__exact=sterm) |
+                                      Q(user__email__exact=sterm))
+
+    return render(request, 'partial/search.html', {'q': user})
+

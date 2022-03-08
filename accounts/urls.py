@@ -4,7 +4,7 @@ from accounts.views import (RegisterView,
                             LogoutView,
                             UserProfileView,
                             UserProfileUpdateView,
-                            ChangePasswordView)
+                            ChangePasswordView,  search)
 
 urlpatterns = []
 
@@ -14,7 +14,10 @@ accounts_urls = [
     path('register/', RegisterView.as_view(), name='register'),
     path('profile/<int:pk>', UserProfileView.as_view(), name='profile'),
     path('profile/update', UserProfileUpdateView.as_view(), name='update_profile'),
-    path('profile/change_password', ChangePasswordView.as_view(), name='change_profile')
+    path('profile/change_password', ChangePasswordView.as_view(), name='change_profile'),
+    path('search/', search, name='search')
+
+
 ]
 
 urlpatterns += accounts_urls
