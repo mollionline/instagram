@@ -9,6 +9,8 @@
                 {% if user_obj.profile.avatar %}
                     <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250"
                          alt="user picture" style="border-radius: 100%">
+                    {% else %}
+                    <img src="{% static 'images_common/empty.png' %}" alt="">
                 {% endif %}
             </div>
             <div class="col-md-6">
