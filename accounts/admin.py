@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 class ProfileInline(admin.StackedInline):
     model = Profile
-    fields = ['avatar', 'about_profile', 'phone', 'gender']
+    fields = ['avatar', 'about_profile', 'phone', 'gender', 'followers']
 
 
 class ProfileAdmin(UserAdmin):

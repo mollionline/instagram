@@ -3,6 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
+from django.views.generic import DetailView, UpdateView
+from django.contrib.auth.models import User
+from django.contrib.auth.backends import ModelBackend, UserModel
+
 from django.views.generic import DetailView, UpdateView, ListView
 from typing import Dict
 from urllib.parse import urlencode
@@ -80,8 +84,11 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'profile/profile.html'
     context_object_name = 'user_obj'
-    paginate_related_by = 5
-    paginate_related_orphans = 0
+
+    def get_context_data(self, **kwargs):
+        posts = self.object.posts.order_by('-created_at')
+        kwargs['posts'] = posts
+        return super().get_context_data(**kwargs)
 
 
 class UserProfileUpdateView(UpdateView):
@@ -90,18 +97,14 @@ class UserProfileUpdateView(UpdateView):
     template_name = 'profile/user_profile_update.html'
     context_object_name = 'user_obj'
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
     def get_context_data(self, **kwargs):
         if 'profile_form' not in kwargs:
             kwargs['profile_form'] = self.get_profile_form()
             kwargs['genders'] = Profile.GENDER
-        return super(UserProfileUpdateView, self).get_context_data(**kwargs)
-
-    def get_profile_form(self):
-        form_kwargs = {'instance': self.object.profile}
-        if self.request.method == 'POST':
-            form_kwargs['data'] = self.request.POST
-            form_kwargs['files'] = self.request.FILES
-        return ProfileChangeForm(**form_kwargs)
+        return super().get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -122,13 +125,18 @@ class UserProfileUpdateView(UpdateView):
         context['genders'] = Profile.GENDER
         return self.render_to_response(context)
 
+    def get_profile_form(self):
+        form_kwargs = {'instance': self.object.profile}
+        if self.request.method == 'POST':
+            form_kwargs['data'] = self.request.POST
+            form_kwargs['files'] = self.request.FILES
+        return ProfileChangeForm(**form_kwargs)
+
     def get_success_url(self):
         return reverse('profile', kwargs={'pk': self.object.pk})
 
-    def get_object(self, queryset=None):
-        return self.model.objects.get(id=self.request.user.id)
-
-
+    # def get_object(self, queryset=None):
+    #     return self.model.objects.get(id=self.request.user.id)
 
 
 def search(request):
@@ -137,9 +145,9 @@ def search(request):
         return redirect('list_draft')
 
     else:
-        user = Profile.objects.filter(Q(user__username__exact=sterm) |
-                                      Q(user__first_name__exact=sterm) |
-                                      Q(user__email__exact=sterm))
+        user = Profile.objects.filter(Q(user__username__iexact=sterm) |
+                                      Q(user__first_name__iexact=sterm) |
+                                      Q(user__email__iexact=sterm))
 
     return render(request, 'partial/search.html', {'q': user})
 
@@ -148,7 +156,6 @@ class ChangePasswordView(LoginRequiredMixin, UpdateView):
     model = get_user_model()
     template_name = 'registration/change_password.html'
     form_class = PasswordChangeForm
-    context_object_name = 'user_obj'
 
     def form_valid(self, form):
         user = form.save()
@@ -160,3 +167,7 @@ class ChangePasswordView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.model.objects.get(id=self.request.user.id)
+
+
+class FollowProfileView(UpdateView):
+    pass

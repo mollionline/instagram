@@ -1,17 +1,17 @@
  {% load static %}
 <nav class="navbar navbar-light bg-light">
     <div class="container-sm">
+        <a class="navbar-brand" href="{% url 'list_post' %}"
         <a class="navbar-brand" href="#"
            style="font-family: 'Cookie', cursive; text-align: center; font-size: 35px">Instagram</a>
       <form action="{% url 'search' %}" method="GET" class="mx-2 d-flex">
           <input
               class="form-control me-2"
               type="search"
-              placeholder="Search Users Here"
+              placeholder="Поиск"
               aria-label="Search"
               name="search1"
            />
-          <button class="btn btn-outline-success" type="submit">Search</button>
 
       </form>
 
@@ -19,7 +19,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page"
-                   href=""><img src="{% static 'images_common/home_nav.svg' %}" alt="" width="60" height="40"
+                   href="{% url 'list_post' %}"><img src="{% static 'images_common/home_nav.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
@@ -29,7 +29,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link"
-                   href=""><img src="{% static 'images_common/add_circle.svg' %}" alt="" width="60" height="40"
+                   href="{% url 'create_post' %}"><img src="{% static 'images_common/add_circle.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
@@ -38,9 +38,11 @@
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
+                {% if request.user.pk %}
                 <a class="nav-link"
                    href="{% url 'profile' request.user.pk %}"><img src="{% static 'images_common/person.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
+                {% endif %}
             </li>
         </ul>
     </div>

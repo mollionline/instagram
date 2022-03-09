@@ -1,32 +1,39 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
      <div>
-            Автор: <span>{{ post.author }}</span>
-        </div>
-        <div>
-            Описание: {{ post.text }}
-        </div>
+
+
+        <a class="nav-link" style="text-align: right" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                   href="#"><img src="{% static 'images_common/interface-ui-dots-menu-svgrepo-com.svg' %}" alt="" width="60" height="40"
+                     class="d-inline-block align-text-top"></a>
+
+
 
         <div>
-            <img style="width: 30%" src="{{ post.photo.url }}" alt="">
+            <img style="width: 100%" src="{{ post.photo.url }}" alt="">
         </div>
     <div>
-        {% if request.user.pk not in post.likes.user_id %}
-            <a href="{% url 'like' pk=post.pk %}">
-            <i class="fa fa-thumbs-up"></i>
-                Like
-            </a>
+        {% if request.user.pk in post.likes.user_id %}
+            <p class="nav-link"
+                   ><img src="{% static 'images_common/favorite.svg' %}" alt="" width="60" height="40"
+                     class="d-inline-block align-text-top">{{ post.likes.count }}</p>
+
             {% else %}
-                Оценили: {{ post.likes.count }}
-            {% endif %}
-    </div>
-
-
+                <a class="nav-link"
+                   href="{% url 'like' pk=post.pk %}"><img src="{% static 'images_common/favorite.svg' %}" alt="" width="60" height="40"
+                     class="d-inline-block align-text-top"></a>
 
     <div>
             <a href="{% url 'list_post' %}">Публикации</a>
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Удалить</button>
+            {% endif %}
+        {{ post.likes.count }}
+            Автор: <span>{{ post.author }}</span>
+        </div>
+        <div>
+            Описание: {{ post.text }}
         </div>
      <div style="width: 50%;">
 
@@ -39,6 +46,7 @@
             {% include "partial/comment/comment_list.html" with comments=post.comments.all%}
 
         {% endif %}
+    </div>
 
 
      {% include 'common/delete_modal.html' with deleted_object=post%}

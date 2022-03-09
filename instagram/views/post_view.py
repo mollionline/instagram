@@ -33,7 +33,6 @@ class PostListView(SearchView):
     template_name = 'post/list_post_view.html'
     model = Post
     ordering = ('-created_at',)
-    paginate_by = 5
     context_object_name = 'posts'
     search_form = SearchForm
     search_fields = {
