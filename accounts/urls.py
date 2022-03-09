@@ -4,7 +4,8 @@ from accounts.views import (RegisterView,
                             LogoutView,
                             UserProfileView,
                             UserProfileUpdateView,
-                            ChangePasswordView,  search)
+                            ChangePasswordView,  search,
+                            FollowProfileView)
 
 urlpatterns = []
 
@@ -15,7 +16,8 @@ accounts_urls = [
     path('profile/<int:pk>', UserProfileView.as_view(), name='profile'),
     path('profile/update', UserProfileUpdateView.as_view(), name='update_profile'),
     path('profile/change_password', ChangePasswordView.as_view(), name='change_password'),
-    path('search/', search, name='search')
+    path('search/', search, name='search'),
+    path('profile/<int:pk>/follow', FollowProfileView.as_view(), name='follow')
 
 ]
 
