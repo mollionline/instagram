@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from django.views.generic import RedirectView
 
-from instagram.models import Post
+from instagram.models import Post, Comment
 
 
 class PostDetailView(DetailView):

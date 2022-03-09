@@ -25,6 +25,9 @@
                    href="{% url 'like' pk=post.pk %}"><img src="{% static 'images_common/favorite.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
 
+    <div>
+            <a href="{% url 'list_post' %}">Публикации</a>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger">Удалить</button>
             {% endif %}
         {{ post.likes.count }}
             Автор: <span>{{ post.author }}</span>
@@ -32,7 +35,17 @@
         <div>
             Описание: {{ post.text }}
         </div>
+     <div style="width: 50%;">
 
+           <form action="{% url 'create_comment' post.pk %}" method="POST">
+        {% include "partial/comment/comment_form.html" with button_text='Ok' %}
+        </form>
+
+        </div>
+        {% if post.comments %}
+            {% include "partial/comment/comment_list.html" with comments=post.comments.all%}
+
+        {% endif %}
     </div>
 
 

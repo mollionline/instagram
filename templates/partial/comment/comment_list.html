@@ -1,0 +1,18 @@
+{% for comment in comments %}
+        <div class="card" style="width: 22rem; margin: 5px">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.author.get_full_name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.text }}</h6>
+                    <p class="card-text">Дата публикации {{ comment.created_at|date:'d F Y' }}</p>
+                    <p class="card-text">Время публикации {{ comment.created_at|date:'G:i' }}</p>
+                    {% if perms.post.change_comment or comment.author == request.user %}
+                        <a href="{% url 'update_comment' comment.pk %} " class="card-link">Изменить</a>
+                    {% endif %}
+                    {% if perms.post.delete_comment or comment.author == request.user %}
+                        <a href="{% url 'delete_comment' comment.pk %} " class="card-link">Удалить</a>
+                    {% endif %}
+                </div>
+            </div>
+    {% empty %}
+    Комментарии отсутствуют!
+{% endfor %}
