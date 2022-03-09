@@ -35,8 +35,8 @@ class Post(Entity):
                               null=False,
                               blank=False)
     text = models.TextField(max_length=3000,
-                            null=False,
-                            blank=False)
+                            null=True,
+                            blank=True)
 
     def __str__(self):
         return f"{self.pk}. {self.author}"

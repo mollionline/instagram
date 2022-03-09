@@ -1,3 +1,4 @@
+{% load static %}
 <div style="display: flex; flex-wrap: wrap;">
         {% for post in posts %}
             <div class="card"  style="width: 22rem; margin: 5px">
@@ -7,14 +8,12 @@
 
                     <div style="display: flex">
                     <img style="width: 100%" src="{{ post.photo.url }}" alt="">
-                    <div>
-
-                        <p class="card-text">Оценили: {{ post.likes.count|default:0 }}</p>
-                        </div>
+                    </div>
                     </a>
-
-            </div>
-
+                    <div>
+                         <p class="nav-link"><img src="{% static 'images_common/favorite.svg' %}" alt="" width="60" height="40"
+                        class="d-inline-block align-text-top">{{ post.likes.count|default:0 }}</p>
+                        </div>
             </div>
         </div>
     {% endfor %}
