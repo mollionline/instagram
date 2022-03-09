@@ -7,6 +7,16 @@ from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend, UserModel
 
+from django.views.generic import DetailView, UpdateView, ListView
+from typing import Dict
+from urllib.parse import urlencode
+
+from django.db.models import Q
+from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm
+from django.views.generic import DetailView, UpdateView
+from django.contrib.auth.models import User
+from django.contrib.auth.backends import ModelBackend, UserModel
+
 from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
 
 # Create your views here.
@@ -121,6 +131,21 @@ class UserProfileUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.model.objects.get(id=self.request.user.id)
+
+
+
+
+def search(request):
+    sterm = request.GET.get('search1', None)
+    if sterm == None:
+        return redirect('list_draft')
+
+    else:
+        user = Profile.objects.filter(Q(user__username__exact=sterm) |
+                                      Q(user__first_name__exact=sterm) |
+                                      Q(user__email__exact=sterm))
+
+    return render(request, 'partial/search.html', {'q': user})
 
 
 class ChangePasswordView(LoginRequiredMixin, UpdateView):

@@ -2,6 +2,7 @@
 <nav class="navbar navbar-light bg-light">
     <div class="container-sm">
         <a class="navbar-brand" href="{% url 'list_post' %}"
+        <a class="navbar-brand" href="#"
            style="font-family: 'Cookie', cursive; text-align: center; font-size: 35px">Instagram</a>
       <form action="{% url 'search' %}" method="GET" class="mx-2 d-flex">
           <input
@@ -20,6 +21,7 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page"
                    href="{% url 'list_post' %}"><img src="{% static 'images_common/home_nav.svg' %}" alt="" width="60" height="40"
+                   href=""><img src="{% static 'images_common/home_nav.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
@@ -30,6 +32,7 @@
             <li class="nav-item">
                 <a class="nav-link"
                    href="{% url 'create_post' %}"><img src="{% static 'images_common/add_circle.svg' %}" alt="" width="60" height="40"
+                   href=""><img src="{% static 'images_common/add_circle.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
