@@ -9,14 +9,28 @@
                 {% if user_obj.profile.avatar %}
                     <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250"
                          alt="user picture" style="border-radius: 100%">
-                    {% else %}
+                {% else %}
                     <img src="{% static 'images_common/empty.png' %}" alt="">
                 {% endif %}
             </div>
             <div class="col-md-6">
                 <div class="card-body">
-                    <h5 class="card-title">{{ user_obj.username }} {% if request.user.id == user_obj.id %}<a href="{% url 'update_profile' %}" class="btn btn-outline-dark">Редактировать профиль</a>{% endif %}
-                        <a href="#"><img src="{% static 'images_common/profile_settings.svg' %}" alt=""> </a> </h5>
+                    <h5 class="card-title">{{ user_obj.username }} {% if request.user.id == user_obj.id %}
+                        <a href="{% url 'update_profile' %}" class="btn btn-outline-dark">Редактировать
+                            профиль</a> {% else %}
+                        <form action="{% url 'follow' user_obj.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type='submit' name="followers" value="{{ user_obj.pk }}">
+                        </form>{% endif %}
+                        {% if request.user.id == user_obj.id %}
+                            <a href="#"><img src="{% static 'images_common/profile_settings.svg' %}" alt=""></a>
+                        {% endif %}
+                    </h5>
+                    <p><b>{{ user_obj.posts.count|default:'0' }}</b> публикаций
+                        <b>{{ user_obj.followed_id.count|default:'0' }}{% for user in user_obj.followed_id.all %}
+                            {{ user.user }} {% endfor %}</b> подписчиков
+                        <b>{{ user_obj.profile.followers.count|default:'0' }}
+                            {% for user in user_obj.profile.followers.all %} {{ user }} {% endfor %}</b> подписок </p>
                     <p class="card-text">{{ user_obj.first_name }}</p>
                     {% if user_obj.profile.about_profile %}
                         <p class="card-text">{{ user_obj.profile.about_profile|default:'' }}</p>
@@ -25,16 +39,11 @@
             </div>
         </div>
     </div>
-    <div>
-{#        {% if request.user.id == user_obj.id %}#}
-{#            <a class="btn btn-info" href="{% url 'update_profile' %}">Редактировать</a>#}
-{#            <a class="btn btn-danger" href="{% url 'change_password' %}">Изменить профиль</a>#}
-{#        {% endif %}#}
-    </div>
 
-{#    <h2 class="text-center clear">Проекты автора:</h2>#}
-{##}
-{#    {% include 'common/pagination.html' %}#}
-{#    {% include 'partial/project/profiles_project_list.html' %}#}
+    {% include 'partial/post/post_list.html' %}
+    {% if user_obj.posts.count == 0 %}
+        <p style="color: gray; font-size: 50px; margin-top: 50px; text-align: center;"><img style="width: 50px;" src="{% static 'images_common/photo_camera.svg' %}" alt=""></p>
+        <p style="color: gray; font-size: 30px; margin-top: 50px; text-align: center">Публикации пока нет</p>
+    {% endif %}
 
 {% endblock %}

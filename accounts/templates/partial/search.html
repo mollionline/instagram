@@ -1,19 +1,41 @@
 {% extends 'base.html' %} {% block content %}
+    {% load static %}
 
-<body>
+    <body>
 
-<div class="container">
-    {% for user in q %}
-    <div class="post mt-2">
+    <div class="container">
+        {% for user in q %}
+            <div class="post mt-2">
 
-           <a href="{% url 'profile' user.pk %}"> Пользователь: {{ user.user }}</a>
+                <a href="{% url 'profile' user.user.pk %}" style="text-decoration: none; color: black;">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                {% if user.avatar %}
+                                    <img class="avatar" src="{{ user.avatar.url }}" width="250" height="250"
+                                         alt="user picture" style="border-radius: 100%">
+                                {% else %}
+                                    <img src="{% static 'images_common/empty.png' %}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ user.user }}</h5>
+                                    <p class="card-text">{{ user.user.first_name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
 
+            </div>
+        {% empty %}
+            <p style="text-align: center; color: gray; margin-top: 50px">Ничего не найдено</p>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 
-</body>
+    </body>
 
 
 
