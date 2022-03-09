@@ -1,6 +1,8 @@
+
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from instagram.helpers import FormView as CustomFormView, SearchView, DetailView
 from instagram.forms import PostForm, SearchForm
 from django.urls import reverse
@@ -29,16 +31,14 @@ class DeleteView(RedirectView):
         return redirect(self.get_redirect_url())
 
 
-class PostListView(SearchView):
+class PostListView(ListView):
     template_name = 'post/list_post_view.html'
     model = Post
     ordering = ('-created_at',)
     context_object_name = 'posts'
-    search_form = SearchForm
-    search_fields = {
-        'author': 'icontains',
-        'text': 'startswith'
-    }
+
+
+
 
 
 class PostCreateView(LoginRequiredMixin, CustomFormView):

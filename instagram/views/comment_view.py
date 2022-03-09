@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import CreateView, DeleteView, UpdateView
 from ..helpers import DeleteView
-from instagram.forms import CommentForm, CommentWithPostForm
+from instagram.forms import CommentForm
 from instagram.models import Comment, Post
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import PermissionRequiredMixin

@@ -85,6 +85,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     template_name = 'profile/profile.html'
     context_object_name = 'user_obj'
 
+
     def get_context_data(self, **kwargs):
         posts = self.object.posts.order_by('-created_at')
         kwargs['posts'] = posts
@@ -142,7 +143,7 @@ class UserProfileUpdateView(UpdateView):
 def search(request):
     sterm = request.GET.get('search1', None)
     if sterm == None:
-        return redirect('list_draft')
+        return redirect('list_post')
 
     else:
         user = Profile.objects.filter(Q(user__username__iexact=sterm) |

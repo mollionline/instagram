@@ -1,29 +1,14 @@
-{##}
-{#     {% csrf_token %}#}
-{##}
-{#    <label for="text">Комментарий</label>#}
-{#    <textarea#}
-{#        class="form-control {% if form.text.errors %} is-invalid {% endif %}"#}
-{#        name="text"#}
-{#        id="text"#}
-{#        cols="30" rows="10">{{ form.text.value }}#}
-{#    </textarea>#}
-{#    {% for error in form.text.errors %}#}
-{#        <p id='text' class="invalid-feedback">{{ error }}</p>#}
-{#    {% endfor %}#}
-{##}
-{#    <input type="submit" class="form-control" value="{{ button_text }}">#}
 
 {% csrf_token %}
 
-<label for="text">Коммент</label>
+<label for="text"></label>
 <textarea
   class="form-control"
   name="text"
   id="text"
   cols="20"
   rows="8"
-  placeholder="Начните писать коммент"
+  placeholder="Добавьте комментарий"
 >
 {{ form.text.value|default:''}}</textarea
 >
