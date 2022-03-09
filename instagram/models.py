@@ -65,4 +65,20 @@ class Like(models.Model):
             models.UniqueConstraint(fields=['user', 'post'], name="unique_like"),
         ]
 
+class Comment(Entity):
+    post = models.ForeignKey('instagram.Post',
+                             related_name='comments',
+                             on_delete=models.CASCADE,
+                             verbose_name='Пост')
+    text = models.TextField(max_length=400,
+                            verbose_name='Комментарий')
+    author = models.ForeignKey(
+                            get_user_model(),
+                            on_delete=models.SET_DEFAULT,
+                            related_name='comments',
+                            default=1,
+                            verbose_name='Автор'
+                            )
 
+    def __str__(self):
+        return self.text[:20]
