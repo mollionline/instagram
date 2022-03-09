@@ -101,7 +101,7 @@ class UserProfileUpdateView(UpdateView):
         if 'profile_form' not in kwargs:
             kwargs['profile_form'] = self.get_profile_form()
             kwargs['genders'] = Profile.GENDER
-        return super(UserProfileUpdateView, self).get_context_data(**kwargs)
+        return super().get_context_data(**kwargs)
 
     def get_profile_form(self):
         form_kwargs = {'instance': self.object.profile}
