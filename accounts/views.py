@@ -97,18 +97,14 @@ class UserProfileUpdateView(UpdateView):
     template_name = 'profile/user_profile_update.html'
     context_object_name = 'user_obj'
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
     def get_context_data(self, **kwargs):
         if 'profile_form' not in kwargs:
             kwargs['profile_form'] = self.get_profile_form()
             kwargs['genders'] = Profile.GENDER
         return super().get_context_data(**kwargs)
-
-    def get_profile_form(self):
-        form_kwargs = {'instance': self.object.profile}
-        if self.request.method == 'POST':
-            form_kwargs['data'] = self.request.POST
-            form_kwargs['files'] = self.request.FILES
-        return ProfileChangeForm(**form_kwargs)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -129,11 +125,18 @@ class UserProfileUpdateView(UpdateView):
         context['genders'] = Profile.GENDER
         return self.render_to_response(context)
 
+    def get_profile_form(self):
+        form_kwargs = {'instance': self.object.profile}
+        if self.request.method == 'POST':
+            form_kwargs['data'] = self.request.POST
+            form_kwargs['files'] = self.request.FILES
+        return ProfileChangeForm(**form_kwargs)
+
     def get_success_url(self):
         return reverse('profile', kwargs={'pk': self.object.pk})
 
-    def get_object(self, queryset=None):
-        return self.model.objects.get(id=self.request.user.id)
+    # def get_object(self, queryset=None):
+    #     return self.model.objects.get(id=self.request.user.id)
 
 
 def search(request):
