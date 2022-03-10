@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.views.generic import RedirectView
 
 from instagram.models import Post, Comment
+from accounts.models import Profile
 
 
 def like_view(request, pk):
@@ -43,6 +44,12 @@ class PostListView(LoginRequiredMixin, ListView):
     model = Post
     ordering = ('-created_at',)
     context_object_name = 'posts'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        user_obj = self.request.user
+        context['posts'] = Post.objects.filter(author_id__in=user_obj.profile.followers.all()).order_by('-created_at')
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CustomFormView):
