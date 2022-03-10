@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -21,4 +22,4 @@ class Profile(models.Model):
     followers = models.ManyToManyField(get_user_model(), related_name='followed_id', verbose_name='Подписчики', blank=True)
 
     def __str__(self):
-        return self.user.get_full_name() + "'s Profile"
+        return f"{self.user.get_full_name()}'s Profile"
