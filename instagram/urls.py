@@ -1,8 +1,8 @@
 from django.urls import path
 
 from instagram.views.comment_view import PostCommentCreateView, PostCommentUpdateView, PostCommentDeleteView
-from instagram.views.like_view import LikeView
-from instagram.views.post_view import PostCreateView, PostDetailView, PostListView, DeleteView
+
+from instagram.views.post_view import like_view, PostCreateView, PostDetailView, PostListView, DeleteView
 
 urlpatterns = []
 
@@ -11,7 +11,7 @@ post_urls = [
     path('post/<int:pk>', PostDetailView.as_view(), name='detail_post'),
     path('', PostListView.as_view(), name='list_post'),
     path('post/<int:pk>/delete', DeleteView.as_view(), name='delete_post'),
-    path('post/like/<int:pk>', LikeView.as_view(), name='like')
+    path('like/<int:pk>', like_view, name='like_post'),
 ]
 
 comment_urls = [

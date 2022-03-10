@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    {% include 'partial/post/post_list.html' %}
+    {% include 'partial/post/profile_post_list.html' %}
     {% if user_obj.posts.count == 0 %}
         <p style="color: gray; font-size: 50px; margin-top: 50px; text-align: center;"><img style="width: 50px;" src="{% static 'images_common/photo_camera.svg' %}" alt=""></p>
         <p style="color: gray; font-size: 30px; margin-top: 50px; text-align: center">Публикации пока нет</p>
