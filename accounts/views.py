@@ -197,4 +197,3 @@ class FollowProfileView(UpdateView):
             return HttpResponseRedirect(url)
         return render(request, self.template_name, context={'form': form})
 
-

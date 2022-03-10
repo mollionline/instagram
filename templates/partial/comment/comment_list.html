@@ -1,18 +1,60 @@
 {% for comment in comments %}
         <div class="card" style="width: 22rem; margin: 5px">
-                <div class="card-body">
-                    <h5 class="card-title">{{ comment.author.get_full_name }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.text }}</h6>
-                    <p class="card-text">Дата публикации {{ comment.created_at|date:'d F Y' }}</p>
-                    <p class="card-text">Время публикации {{ comment.created_at|date:'G:i' }}</p>
-                    {% if perms.post.change_comment or comment.author == request.user %}
-                        <a href="{% url 'update_comment' comment.pk %} " class="card-link">Изменить</a>
-                    {% endif %}
-                    {% if perms.post.delete_comment or comment.author == request.user %}
-                        <a href="{% url 'delete_comment' comment.pk %} " class="card-link">Удалить</a>
-                    {% endif %}
+                <div class="card-body" >
+                    <div class="article-metadata" style="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 15px; " >
+                      <a class="mr-2"
+                         href="#"> {{ comment.author.username }}
+                      </a>
+                      <div>
+                      <small class="text-muted">{{ comment.created_at|date:'Y-m-d' }}
+                      </small>
+                       <small class="text-muted">, {{ comment.created_at|date:'G:i' }}
+                      </small>
+                      </div>
+
+                    </div>
+
+                    <div> <h6 class="card-subtitle mb-2 text-muted">{{ comment.text }}</h6></div>
+                    <div style="width: 100px; display: inline " >
+
+                        {% if perms.post.change_comment or comment.author == request.user %}
+                            <a href="{% url 'update_comment' comment.pk  %}" class="card-link"
+                              ><i class="fas fa-edit" style="font-size: 20px; margin: 5px"></i></a>
+                        {% endif %}
+
+
+                        {% if perms.post.delete_comment or comment.author == request.user %}
+                            <a href="{% url 'delete_comment' comment.pk  %}" class="card-link"
+                              ><i class="fas fa-trash-alt" style="font-size: 20px; color: red "></i></a>
+                        {% endif %}
+
+                    </div>
+
                 </div>
             </div>
     {% empty %}
     Комментарии отсутствуют!
 {% endfor %}
+
+
+
+
+
+{#{% for comment in comments %}#}
+{#        <div class="card" style="width: 22rem; margin: 5px">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ comment.author.get_full_name }}</h5>#}
+{#                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.text }}</h6>#}
+{#                    <p class="card-text">Дата публикации {{ comment.created_at|date:'d F Y' }}</p>#}
+{#                    <p class="card-text">Время публикации {{ comment.created_at|date:'G:i' }}</p>#}
+{#                    {% if perms.post.change_comment or comment.author == request.user %}#}
+{#                        <a href="{% url 'update_comment' comment.pk %} " class="card-link">Изменить</a>#}
+{#                    {% endif %}#}
+{#                    {% if perms.post.delete_comment or comment.author == request.user %}#}
+{#                        <a href="{% url 'delete_comment' comment.pk %} " class="card-link">Удалить</a>#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#    {% empty %}#}
+{#    Комментарии отсутствуют!#}
+{#{% endfor %}#}

@@ -27,6 +27,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
+import sys
+
+sys.modules['fontawesome_free'] = __import__('fontawesome-free')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'instagram',
     'accounts',
-    'phonenumber_field'
+    'phonenumber_field',
+    'fontawesome_free'
 ]
 
 MIDDLEWARE = [
