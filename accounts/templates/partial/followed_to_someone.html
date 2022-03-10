@@ -1,0 +1,31 @@
+{% extends 'base_register.html' %}
+{% load static %}
+{% block content %}
+    {% for user_obj in user_obj.profile.followers.all %}
+        <div class="post mt-2">
+            <a href="{% url 'profile' user_obj.pk %}" style="text-decoration: none; color: black;">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if user_obj.profile.avatar %}
+                                <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250"
+                                     alt="user picture" style="border-radius: 100%">
+                            {% else %}
+                                <img src="{% static 'images_common/empty.png' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user_obj }}</h5>
+                                <p class="card-text">{{ user_obj.first_name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        {% empty %}
+        <p>Подписок пока нет</p>
+    {% endfor %}
+{% endblock %}

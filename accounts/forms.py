@@ -93,3 +93,9 @@ class PasswordChangeForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['password', 'password_confirm', 'password_old']
+
+
+class FollowToSomeoneForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['avatar', 'about_profile', 'phone', 'gender', 'user', 'followers']

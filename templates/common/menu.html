@@ -38,9 +38,13 @@
                      class="d-inline-block align-text-top"></a>
             </li>
             <li class="nav-item">
-                {% if request.user.pk %}
+                {% if user.is_authenticated %}
                 <a class="nav-link"
                    href="{% url 'profile' request.user.pk %}"><img src="{% static 'images_common/person.svg' %}" alt="" width="60" height="40"
+                     class="d-inline-block align-text-top"></a>
+                    {% else %}
+                    <a class="nav-link"
+                   href="{% url 'login' %}"><img src="{% static 'images_common/person.svg' %}" alt="" width="60" height="40"
                      class="d-inline-block align-text-top"></a>
                 {% endif %}
             </li>

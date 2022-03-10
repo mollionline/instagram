@@ -1,6 +1,6 @@
 <div class="form-group" style="text-align: left; color: gray">
     <label for="avatar">Аватар</label>
-    {% if profile_form.avatar.value %}
+    {% if user_obj.profile.avatar %}
         <img src="{{ profile_form.avatar.value.url }}" alt="avatar"
              style="width: 70px; height: 70px">
     {% endif %}

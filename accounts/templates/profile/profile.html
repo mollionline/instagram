@@ -15,22 +15,36 @@
             </div>
             <div class="col-md-6">
                 <div class="card-body">
-                    <h5 class="card-title">{{ user_obj.username }} {% if request.user.id == user_obj.id %}
-                        <a href="{% url 'update_profile' %}" class="btn btn-outline-dark">Редактировать
-                            профиль</a> {% else %}
-                        <form action="{% url 'follow' user_obj.pk %}" method="post">
-                            {% csrf_token %}
-                            <input type='submit' name="followers" value="{{ user_obj.pk }}">
-                        </form>{% endif %}
-                        {% if request.user.id == user_obj.id %}
-                            <a href="#"><img src="{% static 'images_common/profile_settings.svg' %}" alt=""></a>
-                        {% endif %}
+
+                    <h5>
+                        <div class="row py-3">
+                            <div class="col col-3">
+                                {{ user_obj.username }}
+                            </div>
+                            <div class="col col-5">
+                                {% if request.user.id == user_obj.id %}
+                                    <a href="{% url 'update_profile' %}" class="btn btn-outline-dark">Редактировать
+                                        профиль</a>
+                                    <a href="{% url 'logout' %}"><img src="{% static 'images_common/profile_settings.svg' %}" alt=""></a>
+                                {% else %}
+                                    <form action="{% url 'follow' user_obj.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <input type='submit' name="followers" value="Подписаться" class="btn btn-info form-control">
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
                     </h5>
-                    <p><b>{{ user_obj.posts.count|default:'0' }}</b> публикаций
-                        <b>{{ user_obj.followed_id.count|default:'0' }}{% for user in user_obj.followed_id.all %}
-                            {{ user.user }} {% endfor %}</b> подписчиков
-                        <b>{{ user_obj.profile.followers.count|default:'0' }}
-                            {% for user in user_obj.profile.followers.all %} {{ user }} {% endfor %}</b> подписок </p>
+
+                    <div class="row py-3">
+                        <div class="col col-3"><b>{{ user_obj.posts.count|default:'0' }}</b> публикаций</div>
+                        <div class="col col-3"><a style="text-decoration: none; color: black"
+                                                  href="{% url 'profile_followed_users' user_obj.pk %}"><b>{{ user_obj.followed_id.count|default:'0' }}</b>
+                            подписчиков</a></div>
+                        <div class="col col-3"><a style="text-decoration: none; color: black"
+                                                  href="{% url 'followed_to' user_obj.pk %}"><b>{{ user_obj.profile.followers.count|default:'0' }}
+                        </b> подписки</a></div>
+                    </div>
                     <p class="card-text">{{ user_obj.first_name }}</p>
                     {% if user_obj.profile.about_profile %}
                         <p class="card-text">{{ user_obj.profile.about_profile|default:'' }}</p>
