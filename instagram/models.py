@@ -3,8 +3,6 @@ from django.db import models
 from imagekit.models import ImageSpecField
 from pilkit.processors import Transpose, ResizeToFill
 
-from accounts.models import Profile
-
 
 class CustomModelManager(models.Manager):
     def get_queryset(self):

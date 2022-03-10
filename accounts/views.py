@@ -1,24 +1,14 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import DetailView, UpdateView
-from django.contrib.auth.models import User
-from django.contrib.auth.backends import ModelBackend, UserModel
-
-from django.views.generic import DetailView, UpdateView, ListView
-from typing import Dict
-from urllib.parse import urlencode
 
 from django.db.models import Q
-from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm
 from django.views.generic import DetailView, UpdateView
-from django.contrib.auth.models import User
-from django.contrib.auth.backends import ModelBackend, UserModel
-
-from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm, FollowToSomeoneForm
+from accounts.forms import (UserCreationForm,
+                            ProfileCreateForm,
+                            UserChangeForm, ProfileChangeForm,
+                            PasswordChangeForm, FollowToSomeoneForm)
 
 # Create your views here.
 from django.views import View
