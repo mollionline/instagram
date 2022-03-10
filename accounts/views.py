@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model, upd
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.models import User
@@ -17,7 +18,7 @@ from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.backends import ModelBackend, UserModel
 
-from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
+from accounts.forms import UserCreationForm, ProfileCreateForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm, FollowToSomeoneForm
 
 # Create your views here.
 from django.views import View
@@ -50,7 +51,7 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('/')
+        return redirect('/accounts/login/')
 
 
 class RegisterView(View):
@@ -85,11 +86,22 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     template_name = 'profile/profile.html'
     context_object_name = 'user_obj'
 
-
     def get_context_data(self, **kwargs):
         posts = self.object.posts.order_by('-created_at')
         kwargs['posts'] = posts
         return super().get_context_data(**kwargs)
+
+
+class UserFollowedToSomeoneView(DetailView):
+    model = get_user_model()
+    template_name = 'partial/followed_to_someone.html'
+    context_object_name = 'user_obj'
+
+
+class ProfileFollowedUsersView(DetailView):
+    model = get_user_model()
+    template_name = 'partial/profile_followed_users.html'
+    context_object_name = 'user_obj'
 
 
 class UserProfileUpdateView(UpdateView):
@@ -136,9 +148,6 @@ class UserProfileUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('profile', kwargs={'pk': self.object.pk})
 
-    # def get_object(self, queryset=None):
-    #     return self.model.objects.get(id=self.request.user.id)
-
 
 def search(request):
     sterm = request.GET.get('search1', None)
@@ -171,4 +180,21 @@ class ChangePasswordView(LoginRequiredMixin, UpdateView):
 
 
 class FollowProfileView(UpdateView):
-    pass
+    model = get_user_model()
+    form_class = FollowToSomeoneForm
+    template_name = 'profile/profile.html'
+    context_object_name = 'user_obj'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            profile = self.kwargs.get('pk')
+            user_followed = self.request.user
+            user_followed.profile.followers.add(profile)
+            url = reverse('profile', kwargs={
+                'pk': profile
+            })
+            return HttpResponseRedirect(url)
+        return render(request, self.template_name, context={'form': form})
+
+
