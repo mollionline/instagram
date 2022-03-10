@@ -1,5 +1,6 @@
 {% load static %}
 
+
 {% for post in posts %}
 <div class="container" style="width: 900px; display: flex; flex-direction: row;">
     <div>
@@ -7,9 +8,21 @@
             <img class="post-img" style="width: 500px" alt="" src="{{post.image_thumbnail.url}}">
         </a>
 
+
+    <div class="container">
+
+  <div class="row">
+      {% for post in posts %}
+    <div class="col-4 border">
+      <a class="read-more" href="{% url 'detail_post' post.pk %}">
+            <img class="post-img" style="width: 100%" alt="" src="{{post.image_thumbnail.url}}">
+        </a>
     </div>
+
+      {% endfor %}
 </div>
 
 
 
 {% endfor %}
+    </div>
