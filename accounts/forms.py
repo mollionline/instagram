@@ -62,7 +62,7 @@ class UserChangeForm(forms.ModelForm):
 class ProfileChangeForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user', ]
+        exclude = ['user', 'followers']
 
 
 class PasswordChangeForm(forms.ModelForm):

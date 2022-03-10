@@ -1,0 +1,79 @@
+[
+{
+    "model": "accounts.profile",
+    "pk": 11,
+    "fields": {
+        "user": 1,
+        "avatar": "user_pics/admin.jpg",
+        "about_profile": "Админ",
+        "phone": null,
+        "gender": "they",
+        "followers": [
+            19
+        ]
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 12,
+    "fields": {
+        "user": 19,
+        "avatar": "user_pics/gloria-cretu-G4mQRCg_Wds-unsplash.jpg",
+        "about_profile": "manager",
+        "phone": null,
+        "gender": "woman",
+        "followers": [
+            1,
+            21,
+            22
+        ]
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 13,
+    "fields": {
+        "user": 20,
+        "avatar": "user_pics/Anonymous_emblem.svg_e84Zso5.png",
+        "about_profile": "Разработчик",
+        "phone": null,
+        "gender": "woman",
+        "followers": [
+            1,
+            19,
+            21,
+            22
+        ]
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 14,
+    "fields": {
+        "user": 21,
+        "avatar": "user_pics/abbie-tanner-5VDUzzNg_Wk-unsplash.jpg",
+        "about_profile": "Лидер",
+        "phone": null,
+        "gender": "man",
+        "followers": [
+            1,
+            19
+        ]
+    }
+},
+{
+    "model": "accounts.profile",
+    "pk": 15,
+    "fields": {
+        "user": 22,
+        "avatar": "user_pics/anna-meshkov-4iKdk29tMpU-unsplash.jpg",
+        "about_profile": "Анар",
+        "phone": null,
+        "gender": "woman",
+        "followers": [
+            1,
+            19
+        ]
+    }
+}
+]

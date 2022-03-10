@@ -1,2 +1,209 @@
 [
+{
+    "model": "instagram.post",
+    "pk": 1,
+    "fields": {
+        "created_at": "2022-03-10T18:16:12.986Z",
+        "is_deleted": false,
+        "author": 1,
+        "photo": "posts/photos/admin.jpg",
+        "text": "",
+        "post_likes": [
+            1,
+            19
+        ]
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 2,
+    "fields": {
+        "created_at": "2022-03-10T18:26:33.075Z",
+        "is_deleted": false,
+        "author": 19,
+        "photo": "posts/photos/Без_названия.jpeg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 5,
+    "fields": {
+        "created_at": "2022-03-10T18:27:39.950Z",
+        "is_deleted": false,
+        "author": 19,
+        "photo": "posts/photos/developer.jpg",
+        "text": "",
+        "post_likes": [
+            19
+        ]
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 6,
+    "fields": {
+        "created_at": "2022-03-10T19:23:46.139Z",
+        "is_deleted": false,
+        "author": 20,
+        "photo": "posts/photos/mehmet-turgut-kirkgoz-bqasztLBMrc-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 7,
+    "fields": {
+        "created_at": "2022-03-10T19:23:56.109Z",
+        "is_deleted": false,
+        "author": 20,
+        "photo": "posts/photos/woody-kelly-OiEuLlfBSRg-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 8,
+    "fields": {
+        "created_at": "2022-03-10T19:24:04.574Z",
+        "is_deleted": false,
+        "author": 20,
+        "photo": "posts/photos/anna-meshkov-4iKdk29tMpU-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 9,
+    "fields": {
+        "created_at": "2022-03-10T19:24:41.210Z",
+        "is_deleted": false,
+        "author": 19,
+        "photo": "posts/photos/gloria-cretu-G4mQRCg_Wds-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 10,
+    "fields": {
+        "created_at": "2022-03-10T19:24:53.102Z",
+        "is_deleted": false,
+        "author": 19,
+        "photo": "posts/photos/abbie-tanner-S_JQReKWqCU-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 11,
+    "fields": {
+        "created_at": "2022-03-10T19:27:33.475Z",
+        "is_deleted": false,
+        "author": 1,
+        "photo": "posts/photos/albina-white-yMVkDQ8ipUc-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 12,
+    "fields": {
+        "created_at": "2022-03-10T19:27:47.666Z",
+        "is_deleted": false,
+        "author": 1,
+        "photo": "posts/photos/646_6_potpyac.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 13,
+    "fields": {
+        "created_at": "2022-03-10T19:31:34.784Z",
+        "is_deleted": false,
+        "author": 22,
+        "photo": "posts/photos/anna-meshkov-4iKdk29tMpU-unsplash_uojkLdQ.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 14,
+    "fields": {
+        "created_at": "2022-03-10T19:32:50.439Z",
+        "is_deleted": false,
+        "author": 20,
+        "photo": "posts/photos/Без_названия.jpeg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 15,
+    "fields": {
+        "created_at": "2022-03-10T19:40:39.719Z",
+        "is_deleted": false,
+        "author": 21,
+        "photo": "posts/photos/nikolay-petrov-OdrY_bbrW4g-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 16,
+    "fields": {
+        "created_at": "2022-03-10T19:40:51.224Z",
+        "is_deleted": false,
+        "author": 21,
+        "photo": "posts/photos/mak-KM43C3GB6i4-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.post",
+    "pk": 17,
+    "fields": {
+        "created_at": "2022-03-10T19:43:58.040Z",
+        "is_deleted": false,
+        "author": 22,
+        "photo": "posts/photos/surface-S3DS7gg9SlI-unsplash.jpg",
+        "text": "",
+        "post_likes": []
+    }
+},
+{
+    "model": "instagram.comment",
+    "pk": 1,
+    "fields": {
+        "created_at": "2022-03-10T18:28:09.656Z",
+        "is_deleted": false,
+        "post": 4,
+        "text": "аааааааааа",
+        "author": 19
+    }
+},
+{
+    "model": "instagram.comment",
+    "pk": 2,
+    "fields": {
+        "created_at": "2022-03-10T19:09:53.432Z",
+        "is_deleted": false,
+        "post": 1,
+        "text": "Красота",
+        "author": 1
+    }
+}
 ]

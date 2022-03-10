@@ -3,7 +3,7 @@
                 <div class="card-body" >
                     <div class="article-metadata" style="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 15px; " >
                       <a class="mr-2"
-                         href="#"> {{ comment.author.username }}
+                         href="{% url 'profile' comment.author.pk %}"> {{ comment.author.username }}
                       </a>
                       <div>
                       <small class="text-muted">{{ comment.created_at|date:'Y-m-d' }}
