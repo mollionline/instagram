@@ -6,3 +6,5 @@ phonenumberslite==8.12.44
 Pillow==9.0.1
 sqlparse==0.4.2
 django-imagekit==4.1.0
+
+fontawesome-free==5.15.4
