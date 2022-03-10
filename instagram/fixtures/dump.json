@@ -186,17 +186,6 @@
 },
 {
     "model": "instagram.comment",
-    "pk": 1,
-    "fields": {
-        "created_at": "2022-03-10T18:28:09.656Z",
-        "is_deleted": false,
-        "post": 4,
-        "text": "аааааааааа",
-        "author": 19
-    }
-},
-{
-    "model": "instagram.comment",
     "pk": 2,
     "fields": {
         "created_at": "2022-03-10T19:09:53.432Z",
