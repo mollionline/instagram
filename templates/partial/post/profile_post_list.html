@@ -1,0 +1,12 @@
+{% load static %}
+
+{% for post in posts %}
+<div class="container" style="width: 900px">
+    <div>
+        <a class="read-more" href="{% url 'detail_post' post.pk %}">
+            <img class="post-img" style="width: 290px" alt="" src="{{post.image_thumbnail.url}}">
+        </a>
+
+    </div>
+</div>
+{% endfor %}

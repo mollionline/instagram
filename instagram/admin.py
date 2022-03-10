@@ -8,7 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'author', 'photo', 'text', 'created_at')
     list_filter = ['author']
     search_fields = ['text', 'author']
-    fields = ['author', 'text', 'created_at', 'photo']
+    fields = ['author', 'text', 'created_at', 'photo', 'post_likes']
     readonly_fields = ['created_at']
 
 

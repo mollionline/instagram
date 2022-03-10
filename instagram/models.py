@@ -46,33 +46,19 @@ class Post(Entity):
     text = models.TextField(max_length=3000,
                             null=True,
                             blank=True)
+    post_likes = models.ManyToManyField(get_user_model(),
+                                        related_name='post')
 
     def __str__(self):
         return f"{self.pk}. {self.author}"
 
     class Meta:
-        unique_together = (('author', 'text'), )
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         permissions = [
             ('can_use_it', 'Можно использовать это')
         ]
 
-
-class Like(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,
-                             related_name="likes")
-
-    user = models.ForeignKey(get_user_model(),
-                             on_delete=models.CASCADE,
-                             related_name="likes")
-
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['user', 'post'], name="unique_like"),
-        ]
 
 class Comment(Entity):
     post = models.ForeignKey('instagram.Post',
