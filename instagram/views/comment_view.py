@@ -9,16 +9,14 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class PostCommentCreateView(CreateView):
+class PostCommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
 
     form_class = CommentForm
     template_name = 'post/detail_post_view.html'
 
-
     def get_success_url(self):
         return reverse('detail_post', kwargs={'pk': self.kwargs.get('pk')})
-
 
     def post(self, request, *args, **kwargs):
         post_pk = kwargs.get('pk')

@@ -1,39 +1,31 @@
 {% load static %}
 
 
-<div class="infinite-container"
-     style="display: flex; justify-content: space-around; flex-direction: column; align-items: center">
+<div class="container-sm">
 
     {% for post in posts %}
         <div class="article-div infinite-item" name="{{ post.id }}"
              style="display: flex; justify-content: space-around; flex-direction: column">
-            <article class="media content-section">
-                <div class="media-body">
-                    <div class="article-metadata" style="display: flex; justify-content: space-between">
-                        <a class="mr-2" style="text-decoration: none; color: black"
-                           href="{% url 'profile' post.author.pk %}"><img class="avatar"
-                                                                          src="{{ post.author.profile.avatar.url }}"
-                                                                          width="50" height="50"
-                                                                          alt="user picture"
-                                                                          style="border-radius: 100%"> {{ post.author }}
-                        </a>
-                        <a class="read-more" style="text-decoration: none; color: black; text-align: right"
-                           href="{% url 'detail_post' post.pk %}"><img
-                                src="{% static 'images_common/more_detail.svg' %}" alt=""></a>
-                    </div>
-                    <div class="img-heading-wrap">
-                        <div class="article-post-img">
-                            <img class="post-img" src="{{ post.image_thumbnail.url }}">
-                        </div>
+            <div class="container-sm" style="display: flex; justify-content: space-between; flex-direction: row">
+                <a style="text-decoration: none; color: black"
+                   href="{% url 'profile' post.author.pk %}"><img class="avatar"
+                                                                  src="{{ post.author.profile.avatar.url }}"
+                                                                  width="50" height="50"
+                                                                  alt="user picture"
+                                                                  style="border-radius: 100%"> {{ post.author }}
+                </a>
+                <a style="text-decoration: none; color: black; text-align: right"
+                   href="{% url 'detail_post' post.pk %}"><img
+                        src="{% static 'images_common/more_detail.svg' %}" alt=""></a>
+            </div>
+            <img class="post-img" src="{{ post.photo.url }}">
 
-                    </div>
-                    <small class="text-muted">{{ post.created_at|date:"F d, Y" }}
-                    </small>
-                    <div class="post-applause">
-                        <span class="badge badge-secondary">{{ post.likes.count }} likes</span>
-                    </div>
-                </div>
-            </article>
+            <small class="text-muted">{{ post.created_at|date:"F d, Y" }}
+            </small>
+            <div class="post-applause">
+                <span class="badge badge-secondary">{{ post.likes.count }} likes</span>
+            </div>
+
         </div>
 
     {% endfor %}

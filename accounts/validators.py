@@ -4,4 +4,4 @@ from django.core.exceptions import ValidationError
 
 def validate_email(value):
     if User.objects.filter(email__iexact=value).exists():
-        raise ValidationError(f"{value} is taken.", params={'value': value})
+        raise ValidationError(f"{value} уже существует.", params={'value': value})

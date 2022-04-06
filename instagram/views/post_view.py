@@ -20,7 +20,7 @@ def like_view(request, pk):
     return HttpResponseRedirect(reverse('detail_post', args=[str(pk)]))
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'post'
     template_name = 'post/detail_post_view.html'
     model = Post

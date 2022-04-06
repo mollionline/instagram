@@ -21,15 +21,59 @@
                             <div class="col col-3">
                                 {{ user_obj.username }}
                             </div>
-                            <div class="col col-5">
+                            <div class="col col-6">
                                 {% if request.user.id == user_obj.id %}
                                     <a href="{% url 'update_profile' %}" class="btn btn-outline-dark">Редактировать
                                         профиль</a>
-                                    <a href="{% url 'logout' %}"><img src="{% static 'images_common/profile_settings.svg' %}" alt=""></a>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                        <img src="{% static 'images_common/profile_settings.svg' %}" alt="">
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Редактировать</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row row-cols-2">
+                                                        <div class="col col-2">
+                                                            <ul class="nav flex-column navbar-light bg-light">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link {% if request.path == '/accounts/profile/change_password/' %} active {% endif %}"
+                                                                       href="{% url 'change_password' %}">Изменить
+                                                                        пароль профиля</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link {% if request.path == '/accounts/logout/' %} active {% endif %}"
+                                                                       aria-current="page"
+                                                                       href="{% url 'logout' %}">Выйти с аккаунта</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Закрыть
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 {% else %}
                                     <form action="{% url 'follow' user_obj.pk %}" method="post">
                                         {% csrf_token %}
-                                        <input type='submit' name="followers" value="Подписаться" class="btn btn-info form-control">
+                                        <input type='submit' name="followers" value="Подписаться"
+                                               class="btn btn-info form-control">
                                     </form>
                                 {% endif %}
                             </div>
@@ -56,7 +100,9 @@
 
     {% include 'partial/post/profile_post_list.html' %}
     {% if user_obj.posts.count == 0 %}
-        <p style="color: gray; font-size: 50px; margin-top: 50px; text-align: center;"><img style="width: 50px;" src="{% static 'images_common/photo_camera.svg' %}" alt=""></p>
+        <p style="color: gray; font-size: 50px; margin-top: 50px; text-align: center;"><img style="width: 50px;"
+                                                                                            src="{% static 'images_common/photo_camera.svg' %}"
+                                                                                            alt=""></p>
         <p style="color: gray; font-size: 30px; margin-top: 50px; text-align: center">Публикации пока нет</p>
     {% endif %}
 

@@ -34,13 +34,6 @@ class Post(Entity):
                               verbose_name='Фото',
                               null=False,
                               blank=False)
-    image_thumbnail = ImageSpecField(source='photo',
-                                     processors=[
-                                         Transpose(),
-                                         ResizeToFill(800, 500)
-                                     ],
-                                     format='JPEG',
-                                     options={'quality': 70})
     text = models.TextField(max_length=3000,
                             null=True,
                             blank=True)

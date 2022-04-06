@@ -7,7 +7,7 @@
         {% for post in posts %}
             <div class="col-4 border">
                 <a class="read-more" href="{% url 'detail_post' post.pk %}">
-                    <img class="post-img" style="width: 100%" alt="" src="{{ post.image_thumbnail.url }}">
+                    <img class="post-img" style="width: 100%; height: 400px" alt="" src="{{ post.photo.url }}">
                 </a>
             </div>
 
