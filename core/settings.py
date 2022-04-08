@@ -24,7 +24,10 @@ SECRET_KEY = 'django-insecure-g3q$#@c&(5162w56vodqo6g51@ixzromk^b6#*=#9^9sflrcnp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Application definition
 import sys
@@ -38,10 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api_v1',
     'instagram',
     'accounts',
     'phonenumber_field',
-    'fontawesome_free'
+    'fontawesome_free',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -102,6 +110,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

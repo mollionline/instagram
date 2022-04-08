@@ -20,9 +20,9 @@
                href="{% url 'detail_post' post.pk %}"></a>
             <!-- Button trigger modal -->
             {% if post.author == request.user %}
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editPost">
-                <img src="{% static 'images_common/more_detail.svg' %}" alt="">
-            </button>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editPost">
+                    <img src="{% static 'images_common/more_detail.svg' %}" alt="">
+                </button>
             {% endif %}
             <!-- Modal -->
             <div class="modal fade" id="editPost" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -35,10 +35,10 @@
                         </div>
                         <div class="modal-body">
 
-                                <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                        class="btn btn-outline-danger">Удалить
-                                </button>
-                                {% include 'common/delete_modal.html' with deleted_object=post %}
+                            <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    class="btn btn-outline-danger">Удалить
+                            </button>
+                            {% include 'common/delete_modal.html' with deleted_object=post %}
 
                         </div>
                         <div class="modal-footer">
@@ -61,16 +61,51 @@
     </div>
     <div>
         <form action="{% url 'like_post' post.pk %}"
-              method="POST">
+              method="POST" id="postLikes">
             {% csrf_token %}
-            <button type="submit" name="post_id"
+            <input hidden value="{{ request.user.pk }}" id="user_id">
+            <button type="submit" name="post_id" id="post_id"
                     value="{{ post.id }}"
                     class="btn btn-danger btn-sm">
                 <i class="fi-xnsuxl-heart"></i></button>
             Оценили - {{ post.post_likes.count }}
         </form>
 
+        {% block script %}
+            <script>
+                $('#postLikes').submit(function (e) {
+                    e.preventDefault()
+                    let data = $('#post_id').val()
+                    let body = $('#user_id').val()
+                    let body_post = {
+                        'post_id': data,
+                        'user_id': body
+                    }
+                    console.log(body_post)
 
+                    $.ajax({
+                        url: 'http://localhost:8000/api/v1/likes/' + `${data}` + `/`,
+                        method: 'put',
+                        headers: {'Authorization': 'Token ' + localStorage.getItem('apiToken')},
+                        data: JSON.stringify({username: 'dev', password: 'dev'}),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (response, status) {
+                            let list = []
+                            list += body
+                            console.log(response.post_likes = list);
+                            console.log(response)
+                        },
+                        error: function (response, status) {
+                            console.log(response);
+                        }
+                    })
+
+                })
+
+
+            </script>
+        {% endblock %}
     </div>
 
     <div>
@@ -88,10 +123,6 @@
 
         {% endif %}
     </div>
-
-
-
-
 
 {% endblock %}
 

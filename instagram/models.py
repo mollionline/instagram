@@ -38,7 +38,7 @@ class Post(Entity):
                             null=True,
                             blank=True)
     post_likes = models.ManyToManyField(get_user_model(),
-                                        related_name='post')
+                                        related_name='post', blank=True)
 
     def __str__(self):
         return f"{self.pk}. {self.author}"
