@@ -6,16 +6,12 @@
             <ul class="nav flex-column navbar-light bg-light">
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == '/accounts/profile/update/' %} active {% endif %}"
-                           aria-current="page"
-                           href="{% url 'update_profile' %}">Редактировать профиль</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/accounts/profile/change_password/' %} active {% endif %}" href="{% url 'change_password' %}">Изменить пароль профиля</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/accounts/logout/' %} active {% endif %}"
                        aria-current="page"
-                       href="{% url 'logout' %}">Выйти с аккаунта</a>
+                       href="{% url 'update_profile' %}">Редактировать профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/accounts/profile/change_password/' %} active {% endif %}"
+                       href="{% url 'change_password' %}">Изменить пароль профиля</a>
                 </li>
             </ul>
 

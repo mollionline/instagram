@@ -4,7 +4,7 @@
 <div class="container-sm">
 
     {% for post in posts %}
-        <div class="article-div infinite-item" name="{{ post.id }}"
+        <div class="article-div infinite-item" name="{{ post.id }} "
              style="display: flex; justify-content: space-around; flex-direction: column">
             <div class="container-sm" style="display: flex; justify-content: space-between; flex-direction: row">
                 <a style="text-decoration: none; color: black"
@@ -22,12 +22,23 @@
 
             <small class="text-muted">{{ post.created_at|date:"F d, Y" }}
             </small>
-            <div class="post-applause">
-                <span class="badge badge-secondary">{{ post.likes.count }} likes</span>
-            </div>
+
+            <form action="{% url 'like_post' post.pk %}"
+                  method="POST" id="postLikes">
+                {% csrf_token %}
+                <input hidden value="{{ request.user.pk }}" id="user_id">
+                <a type="submit" name="post_id" id="like_button" value="{{ post.pk }}">
+                    <img onclick="likes(event)" class="{{ post.pk }}" data-name="{{ post.pk }}" id="like_icon"
+                         src="{% static "images_common/like_white.png" %}" style="width: 40px" alt="...">
+                </a>
+                <span id="{{ post.pk }}">{{ post.post_likes.count|default:0 }}</span> Нравится
+            </form>
 
         </div>
 
     {% endfor %}
+
+    <script type="application/javascript" src="{% static 'js/posts_like.js' %}">
+    </script>
 
 </div>
