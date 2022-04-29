@@ -7,13 +7,13 @@
             <div class="col">
                 <h4 style="font-family: 'Cookie', cursive; text-align: center; font-size: 35px">Instagram</h4>
                 <form action="{% url 'login' %}{% if next %}?next={{ next }}{% endif %}" method="post"
-                      class="row align-items-center">
+                      class="row align-items-center" id="loginForm">
                     <div>
                         {% csrf_token %}
                         {% if has_error %}
                             <p class="form-error">Неверное имя пользователя или пароль.</p>
                         {% endif %}
-                        <input type="text" class="form-control" id="inputUsername3" name="username"
+                        <input type="text" class="form-control" id="username" name="username"
                                placeholder="Введите имя пользователя или эл. адрес">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
                         <button type="submit" class="btn btn-primary form-control">Войти</button>
@@ -29,4 +29,6 @@
         </div>
 
     </div>
+    <script src="{% static 'js/login.js' %}">
+    </script>
 {% endblock %}

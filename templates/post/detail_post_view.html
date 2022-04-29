@@ -4,17 +4,14 @@
 
 {% block content %}
 
-
-
     <div class="article-div infinite-item" name="{{ post.id }}"
          style="display: flex; justify-content: space-around; flex-direction: column">
         <div class="container-sm" style="display: flex; justify-content: space-between; flex-direction: row">
             <a style="text-decoration: none; color: black"
-               href="{% url 'profile' post.author.pk %}"><img class="avatar"
-                                                              src="{{ post.author.profile.avatar.url }}"
-                                                              width="50" height="50"
-                                                              alt="user picture"
-                                                              style="border-radius: 100%"> {{ post.author }}
+               href="{% url 'profile' post.author.pk %}">
+                <img class="avatar" src="{{ post.author.profile.avatar.url }}"
+                     width="50" height="50" alt="user picture" style="border-radius: 100%">
+                {{ post.author }}
             </a>
             <a style="text-decoration: none; color: black; text-align: right"
                href="{% url 'detail_post' post.pk %}"></a>
@@ -24,29 +21,7 @@
                     <img src="{% static 'images_common/more_detail.svg' %}" alt="">
                 </button>
             {% endif %}
-            <!-- Modal -->
-            <div class="modal fade" id="editPost" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    class="btn btn-outline-danger">Удалить
-                            </button>
-                            {% include 'common/delete_modal.html' with deleted_object=post %}
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include 'common/delete_modal_post.html' %}
         </div>
 
 
@@ -66,9 +41,10 @@
             <input hidden value="{{ request.user.pk }}" id="user_id">
             <button type="submit" name="post_id" id="post_id"
                     value="{{ post.id }}"
-                    class="btn btn-danger btn-sm">
-                <i class="fi-xnsuxl-heart"></i></button>
-            Оценили - {{ post.post_likes.count }}
+                    style="border: none; background-color: white">
+                <img class="like" id="like_icon" src="{% static "images_common/like_white.png" %}" style="width: 40px"
+                     alt="..."></button>
+            <span id="count">{{ post.post_likes.count|default:0 }}</span> Нравится
         </form>
 
     </div>
@@ -88,7 +64,8 @@
 
         {% endif %}
     </div>
-
+    <script type="application/javascript" src="{% static 'js/detail_like.js' %}">
+    </script>
 {% endblock %}
 
 

@@ -29,3 +29,26 @@ class LikesViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.Retrie
     serializer_class = PostLikesSerializer
     permission_classes = [IsAuthenticated]
 
+
+class LogoutView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+            user.auth_token.delete()
+        return Response({'status': 'ok'})
+
+
+class LikesPostAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    model = Post
+
+    def post(self, request, *args, **kwargs):
+        post_pk = kwargs.get('pk')
+        post = get_object_or_404(Post, pk=post_pk)
+        if self.request.user not in post.post_likes.all():
+            post.post_likes.add(self.request.user.pk)
+            return JsonResponse({'like': '+'})
+        else:
+            post.post_likes.remove(self.request.user.pk)
+            return JsonResponse({'like': '-'})
