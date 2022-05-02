@@ -20,8 +20,16 @@ accounts_urls = [
     path('profile/change_password', ChangePasswordView.as_view(), name='change_password'),
     path('search/', search, name='search'),
     path('profile/<int:pk>/follow', FollowProfileView.as_view(), name='follow'),
-    path('profile/<int:pk>/user_followed_to', UserFollowedToSomeoneView.as_view(), name='followed_to'),
-    path('profile/<int:pk>/profile_followed_users', ProfileFollowedUsersView.as_view(), name='profile_followed_users')
+    path(
+        'profile/<int:pk>/user_followed_to',
+        UserFollowedToSomeoneView.as_view(),
+        name='followed_to'
+    ),
+    path(
+        'profile/<int:pk>/profile_followed_users',
+        ProfileFollowedUsersView.as_view(),
+        name='profile_followed_users'
+    )
 
 ]
 

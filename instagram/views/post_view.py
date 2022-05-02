@@ -1,17 +1,14 @@
-
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import CreateView, ListView
-from instagram.helpers import FormView as CustomFormView, SearchView, DetailView
-from instagram.forms import PostForm, SearchForm
+from django.views.generic import ListView
+from instagram.helpers import FormView as CustomFormView, DetailView
+from instagram.forms import PostForm
 from django.urls import reverse
 
 from django.views.generic import RedirectView
 
-from instagram.models import Post, Comment
-from accounts.models import Profile
+from instagram.models import Post
 
 
 def like_view(request, pk):
@@ -48,7 +45,10 @@ class PostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
         user_obj = self.request.user
-        context['posts'] = Post.objects.filter(author_id__in=user_obj.profile.followers.all()).order_by('-created_at')
+        context['posts'] = Post.objects.filter(
+            author_id__in=user_obj.profile.followers.all()).order_by(
+            '-created_at'
+        )
         return context
 
 
@@ -68,7 +68,3 @@ class PostCreateView(LoginRequiredMixin, CustomFormView):
                       context={
                           'form': form
                       })
-
-
-
-

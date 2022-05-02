@@ -1,10 +1,12 @@
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from instagram.models import Post
 
 
 class PostSerializer(serializers.ModelSerializer):
-    photo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True, required=False)
+    photo = serializers.ImageField(
+        max_length=None, allow_empty_file=False,
+        use_url=True, required=False
+    )
 
     class Meta:
         model = Post
@@ -13,7 +15,10 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostLikesSerializer(serializers.ModelSerializer):
-    photo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True, required=False)
+    photo = serializers.ImageField(
+        max_length=None, allow_empty_file=False,
+        use_url=True, required=False
+    )
 
     class Meta:
         model = Post

@@ -1,8 +1,12 @@
 from django.urls import path
 
-from instagram.views.comment_view import PostCommentCreateView, PostCommentUpdateView, PostCommentDeleteView
+from instagram.views.comment_view import (PostCommentCreateView,
+                                          PostCommentUpdateView,
+                                          PostCommentDeleteView)
 
-from instagram.views.post_view import like_view, PostCreateView, PostDetailView, PostListView, DeleteView
+from instagram.views.post_view import (like_view, PostCreateView,
+                                       PostDetailView, PostListView,
+                                       DeleteView)
 
 urlpatterns = []
 

@@ -1,4 +1,6 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
+from django.contrib.auth import (authenticate, login,
+                                 logout, get_user_model,
+                                 update_session_auth_hash)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
@@ -141,13 +143,13 @@ class UserProfileUpdateView(UpdateView):
 
 def search(request):
     sterm = request.GET.get('search1', None)
-    if sterm == None:
+    if sterm is None:
         return redirect('list_post')
 
     else:
-        user = Profile.objects.filter(Q(user__username__iexact=sterm) |
-                                      Q(user__first_name__iexact=sterm) |
-                                      Q(user__email__iexact=sterm))
+        user = Profile.objects.filter(Q(user__username__iexact=sterm)
+                                      | Q(user__first_name__iexact=sterm)
+                                      | Q(user__email__iexact=sterm))
 
     return render(request, 'partial/search.html', {'q': user})
 
@@ -186,4 +188,3 @@ class FollowProfileView(UpdateView):
             })
             return HttpResponseRedirect(url)
         return render(request, self.template_name, context={'form': form})
-

@@ -1,11 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, UpdateView
 from ..helpers import DeleteView
 from instagram.forms import CommentForm
 from instagram.models import Comment, Post
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -43,8 +42,8 @@ class PostCommentUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'post.change_comment'
 
     def has_permission(self):
-        return (self.get_object().author == self.request.user or
-                self.request.user.has_perm(self.permission_required))
+        return (self.get_object().author == self.request.user
+                or self.request.user.has_perm(self.permission_required))
 
     def get_success_url(self):
         return reverse('detail_post', kwargs={'pk': self.object.post.pk})
